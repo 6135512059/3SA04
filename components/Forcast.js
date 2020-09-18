@@ -30,4 +30,10 @@ const styles = StyleSheet.create({
         opacity: 1,
         
     },
+    fontxl:{
+        fontSize: 100,
+        color: 'white',
+        opacity: 1,
+        
+    },
 });

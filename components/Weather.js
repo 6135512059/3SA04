@@ -1,16 +1,21 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, Text, View, ImageBackground } from 'react-native';
-import Forcast from "./Forcast";
+import { View, Text, ImageBackground, StyleSheet } from 'react-native';
+import Forecast from './Forecast';
+
+
+const apiKey = '6cecb9dd2e369d7e9b5d62bc682150d4'
+
 export default function Weather(props) {
     const [forecastInfo, setForecastInfo] = useState({
-        main: '-',
-        description: '-',
+        main: 'main',
+        description: 'description',
         temp: 0
     })
+
     useEffect(() => {
         console.log(`fetching data with zipCode = ${props.zipCode}`)
         if (props.zipCode) {
-            fetch(`http://api.openweathermap.org/data/2.5/weather?q=${props.zipCode},th&units=metric&APPID=...`)
+            fetch(`http://api.openweathermap.org/data/2.5/weather?q=${props.zipCode},th&units=metric&APPID=${apiKey}`)
                 .then((response) => response.json())
                 .then((json) => {
                     setForecastInfo({
@@ -24,17 +29,16 @@ export default function Weather(props) {
                 });
         }
     }, [props.zipCode])
-    
+
+
     return (
-        <View style={styles.mons} >
-            <ImageBackground source={require('./g00q6fsy41b41.jpg')} style={styles.backdrop}>
-                <View style={styles.op}>
-                    <Text style={styles.fontS}>Zip Code {props.zipCode}</Text>
-                    <Text style={styles.fontm}> Main </Text>
-                    <Forcast {...forecastInfo} />
+        <View>
+            <ImageBackground source={require('./bg.jpg')} style={styles.backdrop}>
+                <View style={styles.cover}>
+                    <Text style={styles.medium}>Zip Code:  {props.zipCode}</Text>
+                    <Forecast {...forecastInfo} />
                 </View>
             </ImageBackground>
-
         </View>
     );
 }
@@ -73,6 +77,12 @@ const styles = StyleSheet.create({
     },
     fontl:{
         fontSize: 70,
+        color: 'white',
+        opacity: 1,
+        
+    },
+    fontxl:{
+        fontSize: 100,
         color: 'white',
         opacity: 1,
         

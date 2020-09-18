@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { StyleSheet, Text, View, ImageBackground } from 'react-native';
 import Forcast from "./Forcast";
+
 const apiKey = "6cecb9dd2e369d7e9b5d62bc682150d4" ;
+
 export default function Weather(props) {
     const [forecastInfo, setForecastInfo] = useState({
         main: '-',
@@ -20,9 +22,9 @@ export default function Weather(props) {
                         temp: json.main.temp
                     });
                 })
-                // .catch((error) => {
-                //     console.warn(error);
-                // });
+                .catch((error) => {
+                     console.warn(error);
+                 });
         }
     }, [props.zipCode])
 

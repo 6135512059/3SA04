@@ -1,17 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, ImageBackground, StyleSheet } from 'react-native';
-import Forecast from './Forecast';
-
-
-const apiKey = '6cecb9dd2e369d7e9b5d62bc682150d4'
-
+import { StyleSheet, Text, View, ImageBackground } from 'react-native';
+import Forcast from "./Forcast";
+const apiKey = "6cecb9dd2e369d7e9b5d62bc682150d4" ;
 export default function Weather(props) {
     const [forecastInfo, setForecastInfo] = useState({
-        main: 'main',
-        description: 'description',
+        main: '-',
+        description: '-',
         temp: 0
     })
-
     useEffect(() => {
         console.log(`fetching data with zipCode = ${props.zipCode}`)
         if (props.zipCode) {
@@ -24,21 +20,22 @@ export default function Weather(props) {
                         temp: json.main.temp
                     });
                 })
-                .catch((error) => {
-                    console.warn(error);
-                });
+                // .catch((error) => {
+                //     console.warn(error);
+                // });
         }
     }, [props.zipCode])
 
-
+    
     return (
-        <View>
+        <View style={styles.mons} >
             <ImageBackground source={require('./bg.jpg')} style={styles.backdrop}>
-                <View style={styles.cover}>
-                    <Text style={styles.medium}>Zip Code:  {props.zipCode}</Text>
-                    <Forecast {...forecastInfo} />
+                <View style={styles.op}>
+                    <Text style={styles.fontS}>Zip Code {props.zipCode}</Text>
+                    <Forcast {...forecastInfo} />
                 </View>
             </ImageBackground>
+
         </View>
     );
 }

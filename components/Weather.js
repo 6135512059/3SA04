@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { StyleSheet, Text, View, ImageBackground } from 'react-native';
 import Forcast from "./Forcast";
 
-const apiKey = "6cecb9dd2e369d7e9b5d62bc682150d4" ;
+const apiKey = "6cecb9dd2e369d7e9b5d62bc682150d4";
 
 export default function Weather(props) {
     const [forecastInfo, setForecastInfo] = useState({
@@ -10,6 +10,10 @@ export default function Weather(props) {
         description: '-',
         temp: 0,
     })
+
+    const [imageBck, setImageBck] = useState('./bg.jpg')
+    let file = require('./bg.jpg')
+
     useEffect(() => {
         console.log(`fetching data with zipCode = ${props.zipCode}`)
         if (props.zipCode) {
@@ -21,18 +25,41 @@ export default function Weather(props) {
                         description: json.weather[0].description,
                         temp: json.main.temp
                     });
+
+                    console.log('json: ', json.weather)
+                    console.log('FOrecase info: ', forecastInfo)
+
+                    if (json.weather[0].main == 'Clouds') {
+                        file = require("./clouds.jpg");
+                        setImageBck(require("./clouds.jpg"));
+                    }
+                    else if (json.weather[0].main == 'Rain')
+                        setImageBck(require("./rain.jpg"));
+
+                    else if (json.weather[0].main == 'Sun')
+                        setImageBck(require("./rain.jpg"));
+                    else
+                    setImageBck(require("./bg.jpg"));
+
+                    console.log('Image background: ', imageBck)
                 })
                 .catch((error) => {
-                     console.warn(error);
-                 });
+                    console.warn(error);
+                });
+
+
+
+
         }
     }, [props.zipCode])
 
-const PhotosA = "./bg.jpg";
-    // if()
+
+    console.log('image bcc: ', imageBck)
+
     return (
+
         <View style={styles.mons} >
-            <ImageBackground source={require(PhotosA)} style={styles.backdrop}>
+            <ImageBackground source={imageBck} style={styles.backdrop}>
                 <View style={styles.op}>
                     <Text style={styles.fontS}>Zip Code {props.zipCode}</Text>
                     <Forcast {...forecastInfo} />
@@ -48,8 +75,8 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         width: '100%',
         height: '100%',
-        
-        
+
+
     },
     mons: {
         width: '100%'
@@ -61,31 +88,31 @@ const styles = StyleSheet.create({
         width: '100%',
         alignItems: "center",
         flexDirection: 'column',
-       justifyContent: 'center',
+        justifyContent: 'center',
     },
-    fontS:{
+    fontS: {
         fontSize: 30,
         color: 'white',
         opacity: 1,
-        
+
     },
-    fontm:{
+    fontm: {
         fontSize: 50,
         color: 'white',
         opacity: 1,
-        
+
     },
-    fontl:{
+    fontl: {
         fontSize: 70,
         color: 'white',
         opacity: 1,
-        
+
     },
-    fontxl:{
+    fontxl: {
         fontSize: 100,
         color: 'white',
         opacity: 1,
-        
+
     },
 });
 

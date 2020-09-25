@@ -3,7 +3,7 @@ import { StyleSheet, Text, View, ImageBackground } from 'react-native';
 import Forcast from "./Forcast";
 
 const apiKey = "6cecb9dd2e369d7e9b5d62bc682150d4";
-
+const Datacasd = "seeIMG";
 export default function Weather(props) {
     const [forecastInfo, setForecastInfo] = useState({
         main: '-',
@@ -28,7 +28,19 @@ export default function Weather(props) {
 
                     console.log('json: ', json.weather)
                     console.log('FOrecase info: ', forecastInfo)
+                    // if (props.zipCode == '90110') {
+                    //     file = require("./clouds.jpg");
+                    //     setImageBck(require("./clouds.jpg"));
+                    // }
+                    // else if (props.zipCode == '92000')
+                    //     setImageBck(require("./rain.jpg"));
 
+                    // else if (props.zipCode == '50000')
+                    //     setImageBck(require("./sun.jpg"));
+                    // else
+                    // setImageBck(require("./bg.jpg"));
+
+                    // console.log('Image background: ', imageBck)
                     if (json.weather[0].main == 'Clouds') {
                         file = require("./clouds.jpg");
                         setImageBck(require("./clouds.jpg"));
@@ -37,9 +49,9 @@ export default function Weather(props) {
                         setImageBck(require("./rain.jpg"));
 
                     else if (json.weather[0].main == 'Sun')
-                        setImageBck(require("./rain.jpg"));
+                        setImageBck(require("./sun.jpg"));
                     else
-                    setImageBck(require("./bg.jpg"));
+                        setImageBck(require("./bg.jpg"));
 
                     console.log('Image background: ', imageBck)
                 })
@@ -53,19 +65,16 @@ export default function Weather(props) {
         }
     }, [props.zipCode])
 
-
     console.log('image bcc: ', imageBck)
 
     return (
-
         <View style={styles.mons} >
-            <ImageBackground source={imageBck} style={styles.backdrop}>
+            <ImageBackground source={imageBcks} style={styles.backdrop}>
                 <View style={styles.op}>
                     <Text style={styles.fontS}>Zip Code {props.zipCode}</Text>
                     <Forcast {...forecastInfo} />
                 </View>
             </ImageBackground>
-
         </View>
     );
 }

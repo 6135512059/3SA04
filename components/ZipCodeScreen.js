@@ -1,8 +1,7 @@
 import React from 'react';
 import { StatusBar } from 'expo-status-bar';
-import { View, Text, FlatList, TouchableHighlight ,StyleSheet  ,ImageBackground} from 'react-native';
+import { View, Text, FlatList, TouchableHighlight, StyleSheet, ImageBackground, Image } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-
 
 
 const availableZipItems = [
@@ -22,25 +21,29 @@ const ZipItem = ({ place, code, navigation }) => (
         </View>
     </TouchableHighlight>
 )
-
-
+const ShoIMG = ({navigation}) => (
+    <TouchableHighlight onPress={() => navigation.navigate('About')} underlayColor='#AED6F1'>
+        <View>
+            <Text style={styles.fontS}>About</Text>
+        </View>
+    </TouchableHighlight>
+)
 
 const _keyExtractor = item => item.code
-const PhotosA = "./bg.jpg";
 export default function ZipCodeScreen() {
     const navigation = useNavigation()
     return (
-        
         <View>
-            <ImageBackground source={require(PhotosA)} style={styles.backdrop}>
-            <FlatList
-                data={availableZipItems}
-                keyExtractor={_keyExtractor}
-                renderItem={({ item }) => <ZipItem {...item} navigation={navigation} />}
-            />
-            <StatusBar style="auto" />
+            <ImageBackground source={require("./bg.jpg")} style={styles.backdrop}>
+                <FlatList
+                    data={availableZipItems}
+                    keyExtractor={_keyExtractor}
+                    renderItem={({item}) => <ZipItem {...item} navigation={navigation} />}
+                />
+                <ShoIMG navigation={navigation} />
             </ImageBackground>
         </View>
+        
     );
 
 }
@@ -51,45 +54,48 @@ const styles = StyleSheet.create({
         height: '100%',
         // borderColor: 'red',
         // borderWidth: 4,
-        
+
     },
     mons: {
         width: '100%'
     },
     op: {
-    //    backgroundColor: 'red',
-       // opacity: 0.5,
-       padding: 10,
-    //    margin: 10,
+        //    backgroundColor: 'red',
+        // opacity: 0.5,
+        padding: 10,
+        //    margin: 10,
         alignItems: "center",
         flexDirection: 'row',
-       justifyContent: 'space-around',
+        justifyContent: 'space-around',
     },
-    fontS:{
+    fontS: {
         fontSize: 30,
         color: 'black',
         opacity: 1,
-        
+
     },
-    fontm:{
+    fontm: {
         fontSize: 50,
         color: 'white',
         opacity: 1,
-        
+
     },
-    fontl:{
+    fontl: {
         fontSize: 70,
         color: 'white',
         opacity: 1,
-        
+
     },
-    fontxl:{
+    fontxl: {
         fontSize: 100,
         color: 'white',
         opacity: 1,
-        
+
     },
-    redR:{
-          backgroundColor: 'red', 
+    redR: {
+        width: '100%',
+        height: '10%',
+        alignItems: "center",
+        justifyContent: "center",
     }
 });
